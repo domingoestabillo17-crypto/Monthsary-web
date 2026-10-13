@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a0b2e" />
+  <title>Happy Monthsary, My Love ❤️</title>
+  <meta name="description" content="A little digital gift, made with love." />
+
+  <!-- Romantic fonts (loads online; graceful system fallbacks are used offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       GLOBAL ANIMATED BACKGROUND (hearts, sparkles, petals)
+       ============================================================ -->
+  <div id="bgLayer" class="bg-layer" aria-hidden="true"></div>
+  <div id="petalLayer" class="petal-layer" aria-hidden="true"></div>
+  <canvas id="starCanvas" class="star-canvas" aria-hidden="true"></canvas>
+
+  <!-- ============================================================
+       TOP BAR / NAVIGATION DOTS
+       ============================================================ -->
+  <header class="topbar">
+    <div class="brand"><span class="brand-heart">❤</span> <span id="brandName">Our Story</span></div>
+    <nav id="sectionNav" class="dots" aria-label="Section navigation"></nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         SECTION 1 — WELCOME SCREEN
+         ============================================================ -->
+    <section id="welcome" class="section welcome" data-title="Welcome">
+      <div class="welcome-inner">
+        <div class="glowing-heart" id="bigHeart" aria-hidden="true">
+          <div class="heart-shape"></div>
+        </div>
+        <h1 class="greeting reveal" id="greetingText">Happy Monthsary, My Love ❤️</h1>
+        <p class="subtitle reveal" id="welcomeSubtitle">I hope you like this little surprise I made for you.
+        </p>
+        <button class="btn btn-primary reveal" id="openSurpriseBtn" type="button">
+          Open Your Surprise 💌
+        </button>
+        <div class="scroll-hint reveal" aria-hidden="true">
+          <span class="scroll-hint-text">scroll love ko</span>
+          <span class="scroll-hint-arrow">⌄</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — OUR PHOTO GALLERY
+         ============================================================ -->
+    <section id="gallery" class="section gallery" data-title="Our Gallery">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter Three</p>
+        <h2 class="section-title">Your pretty face hihi</h2>
+        <p class="section-sub">I love you so muchhh</p>
+        <div class="gallery-actions">
+          <button class="btn btn-ghost" id="startSlideshowBtn" type="button">▶ Play Slideshow</button>
+        </div>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 — OUR FAVORITE MUSIC
+         ============================================================ -->
+    <section id="music" class="section music" data-title="Our Music">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter Four</p>
+        <h2 class="section-title">My favorite song to sing for you 🎵</h2>
+        <p class="section-sub">The songs that sound like us.</p>
+      </div>
+
+      <div class="music-card reveal">
+        <div class="music-art">
+          <div class="vinyl" id="vinylDisc"><div class="vinyl-hole"></div></div>
+          <div class="visualizer js-visualizer" id="musicVisualizer" aria-hidden="true"></div>
+        </div>
+
+        <div class="music-info">
+          <h3 class="now-title js-title" id="songTitle">No song selected</h3>
+          <p class="now-sub" id="songArtist">Add songs in config.js</p>
+
+          <div class="progress-row">
+            <span class="time js-time-current" id="currentTime">0:00</span>
+            <input class="range js-seek" id="seekBar" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek" />
+            <span class="time js-time-duration" id="durationTime">0:00</span>
+          </div>
+
+          <div class="controls">
+            <button class="ctrl js-shuffle" id="shuffleBtn" type="button" aria-label="Shuffle" title="Shuffle">🔀</button>
+            <button class="ctrl js-prev" type="button" aria-label="Previous song" title="Previous">⏮</button>
+            <button class="ctrl ctrl-play js-play" type="button" aria-label="Play" title="Play / Pause">
+              <span class="play-icon">▶</span>
+            </button>
+            <button class="ctrl js-next" type="button" aria-label="Next song" title="Next">⏭</button>
+            <button class="ctrl js-loop" id="loopBtn" type="button" aria-label="Loop" title="Loop">🔁</button>
+          </div>
+
+          <div class="volume-row">
+            <button class="ctrl ctrl-small js-mute" type="button" aria-label="Mute" title="Mute">🔊</button>
+            <input class="range range-volume js-volume" id="volumeBar" type="range" min="0" max="100" value="70" aria-label="Volume" />
+          </div>
+        </div>
+
+        <div class="playlist-wrap">
+          <h4 class="playlist-head">Playlist</h4>
+          <ul class="playlist" id="playlistEl"></ul>
+          <p class="playlist-empty" id="playlistEmpty">
+            No songs yet. Drop a song into <code>assets/music/</code> and list it in <code>config.js</code>. 💗
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 — INTERACTIVE LOVE LETTER
+         ============================================================ -->
+    <section id="letter" class="section letter-section" data-title="My Letter">
+      <div class="section-head reveal">
+        <p class="eyebrow">Chapter Five</p>
+        <h2 class="section-title">A Letter For You 💌</h2>
+        <p class="section-sub">Tap the envelope, my love.</p>
+      </div>
+
+      <div class="letter-stage">
+        <div class="envelope-wrap reveal" id="envelopeWrap">
+          <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the love letter">
+            <div class="env-back"></div>
+            <div class="letter-paper-mini"></div>
+            <div class="env-front"></div>
+            <div class="env-flap" id="envelopeFlap"></div>
+            <div class="env-seal" id="envelopeSeal">❤</div>
+          </div>
+          <p class="envelope-hint" id="envelopeHint">Click to open your letter</p>
+        </div>
+
+        <article class="letter-card" id="letterCard" aria-hidden="true">
+          <div class="sparkles" id="letterSparkles" aria-hidden="true"></div>
+          <h3 class="letter-heading">My Love,</h3>
+          <p class="letter-body" id="letterText"></p>
+          <div class="letter-sign">Always yours,<br /><span id="letterSignName">Your Domi</span> ❤️</div>
+          <button class="btn btn-ghost letter-btn" id="revealLetterBtn" type="button">Reveal the whole letter ✨</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5 — FINAL SURPRISE
+         ============================================================ -->
+    <section id="final" class="section final" data-title="Our Forever">
+      <div class="night-sky" aria-hidden="true">
+        <div class="moon"></div>
+        <div class="moon-glow"></div>
+        <div class="shooting-stars" id="shootingStars"></div>
+      </div>
+
+      <div class="final-inner">
+        <p class="final-intro" id="finalIntroText"></p>
+
+        <h2 class="final-heading" id="finalHeadingText"></h2>
+
+        <p class="final-message" id="finalMessageText"></p>
+
+        <p class="final-tagline" id="finalTaglineText"></p>
+
+        <button class="btn btn-primary replay-btn" id="replayBtn" type="button">↺ Relive it from the start</button>
+      </div>
+
+      <div class="final-hearts" id="finalHearts" aria-hidden="true"></div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       MINI MUSIC PLAYER (persistent)
+       ============================================================ -->
+  <div class="mini-player" id="miniPlayer" aria-label="Mini music player">
+    <button class="mini-ctrl js-prev" type="button" aria-label="Previous">⏮</button>
+    <button class="mini-ctrl mini-play js-play" type="button" aria-label="Play">
+      <span class="play-icon">▶</span>
+    </button>
+    <button class="mini-ctrl js-next" type="button" aria-label="Next">⏭</button>
+
+    <div class="mini-info">
+      <div class="mini-title js-title">No song selected</div>
+      <div class="mini-progress">
+        <div class="mini-progress-fill" id="miniProgressFill"></div>
+        <input class="mini-seek js-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek" />
+      </div>
+    </div>
+
+    <div class="mini-visualizer js-visualizer" aria-hidden="true"></div>
+
+    <button class="mini-ctrl js-mute" type="button" aria-label="Mute">🔊</button>
+    <button class="mini-ctrl mini-close" id="miniCloseBtn" type="button" aria-label="Hide player">✕</button>
+  </div>
+
+  <!-- ============================================================
+       PHOTO LIGHTBOX
+       ============================================================ -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Previous photo">‹</button>
+    <figure class="lb-figure">
+      <img class="lb-img" id="lbImg" alt="" />
+      <figcaption class="lb-caption" id="lbCaption"></figcaption>
+    </figure>
+    <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Next photo">›</button>
+    <div class="lb-bar">
+      <span class="lb-counter" id="lbCounter">1 / 1</span>
+      <button class="lb-slide-toggle" id="lbSlideToggle" type="button">▶ Slideshow</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SCRIPTS  (config first, then logic)
+       ============================================================ -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
